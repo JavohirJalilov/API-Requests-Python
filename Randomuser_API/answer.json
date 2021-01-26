@@ -1,0 +1,40 @@
+{
+    "ExcludingFields": [
+        {
+            "gender": "male",
+            "name": {
+                "title": "Mr",
+                "first": "Hans-Heinrich",
+                "last": "Böck"
+            },
+            "nat": "DE"
+        },
+        {
+            "gender": "female",
+            "name": {
+                "title": "Mrs",
+                "first": "Augusta",
+                "last": "Bertram"
+            },
+            "nat": "DE"
+        },
+        {
+            "gender": "male",
+            "name": {
+                "title": "Mr",
+                "first": "Julio",
+                "last": "Taylor"
+            },
+            "nat": "IE"
+        },
+        {
+            "gender": "female",
+            "name": {
+                "title": "Mrs",
+                "first": "Selma",
+                "last": "Gramstad"
+            },
+            "nat": "NO"
+        }
+    ]
+}
