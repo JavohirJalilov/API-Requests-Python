@@ -1,6 +1,8 @@
 import requests
+import os
 
-key = '66c318d009dd44edbf4cc378f81c8dbc'
+key = os.environ['key']
+
 headers = {'X-Api-Key':key}
 url = 'https://randommer.io/api/Card'
 payload = {
