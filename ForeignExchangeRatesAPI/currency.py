@@ -25,5 +25,19 @@ def differentCurrencies(url,base):
 
     return data
 
+def historyUSD(url,dateOne,dateTwo): # dataOne,dateTwo  eg: yyyy-mm-dd
+    url += 'history'
+    payload = {
+        'start_at':dateOne,
+        'end_at':dateTwo,
+        'symbols':'USD'
+    }
 
-print(differentCurrencies(url,'USD'))
+    responce = requests.get(url=url,params=payload)
+    data = responce.json()
+    key = f"WithRespectToThe{data['base']}History"
+    value = data['rates']
+    dataAnswer = {key:value}
+    return dataAnswer
+
+pprint(historyUSD(url,'2021-01-20','2021-01-27'))
