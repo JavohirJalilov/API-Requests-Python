@@ -14,3 +14,16 @@ def differenceCurrency(yearOne,yearTwo):
     
     return abs(data2 - data1)
 
+def differentCurrencies(url,base):
+    url += 'latest'
+    payload = {
+        'base':base,
+        'symbols':['RUB','EUR','JPY','KRW']
+    }
+    responce = requests.get(url=url,params=payload)
+    data = responce.json()
+
+    return data
+
+
+print(differentCurrencies(url,'USD'))
