@@ -40,4 +40,14 @@ def historyUSD(url,dateOne,dateTwo): # dataOne,dateTwo  eg: yyyy-mm-dd
     dataAnswer = {key:value}
     return dataAnswer
 
-pprint(historyUSD(url,'2021-01-20','2021-01-27'))
+
+data = {
+    'differenceCurrency':differenceCurrency(1999,2021),
+    'differentCurrencies':differentCurrencies(url,'USD'),
+    'HistoryUSD':historyUSD(url,'2021-01-20','2021-01-25')
+}
+
+f = open('answer.json','w')
+data_Json = json.dumps(data)
+f.write(data_Json)
+
