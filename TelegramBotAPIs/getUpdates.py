@@ -7,4 +7,4 @@ TOKEN = os.environ['TOKEN']
 responce = requests.get(f'https://api.telegram.org/bot{TOKEN}/getUpdates')
 
 data = responce.json()
-pprint(data)
+pprint(len(data['result']))
