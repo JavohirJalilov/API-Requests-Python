@@ -12,4 +12,16 @@ def get_updates():
     update_id = result['update_id']
     return chat_id,update_id,text
 
-print(get_updates())
+def send_message(chat_id,text):
+    payload = {
+        'chat_id':chat_id,
+        'text':text
+    }
+    
+    url = f'https://api.telegram.org/bot{TOKEN}/sendMessage'
+    responce = requests.get(url,params=payload)
+    print(responce.json())
+
+chat_id,update_id,text = get_updates()
+
+send_message(chat_id,text)
