@@ -17,11 +17,15 @@ def send_message(chat_id,text):
         'chat_id':chat_id,
         'text':text
     }
-    
+
     url = f'https://api.telegram.org/bot{TOKEN}/sendMessage'
-    responce = requests.get(url,params=payload)
-    print(responce.json())
+    requests.get(url,params=payload)
 
-chat_id,update_id,text = get_updates()
+last_update_id = -1
 
-send_message(chat_id,text)
+while True:
+    chat_id,update_id,text = get_updates()
+    if last_update_id != update_id:
+        print(text)
+        send_message(chat_id,text)
+        last_update_id = update_id
