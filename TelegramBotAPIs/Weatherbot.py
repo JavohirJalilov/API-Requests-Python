@@ -11,8 +11,9 @@ def getUpdates():
 
     chat_id = data['message']['chat']['id']
     text = data['message']['text']
+    update_id = data['update_id']
 
-    return chat_id,text
+    return chat_id,text,update_id
 
 def getWeather(text):
     payload = {
@@ -20,13 +21,17 @@ def getWeather(text):
         'appid':KEY
     }
     url = 'https://api.openweathermap.org/data/2.5/weather'
-    responce = requests.get(url,params=payload).json()
-    name = responce['name']
-    description = responce['weather'][0]['description']
-    icon = responce['weather'][0]['icon']
-    temp = round(responce['main']['temp'] - 273)
+    responce = requests.get(url,params=payload)
+    if responce.status_code == 200:
+        responce = requests.get(url,params=payload).json()
+        name = responce['name']
+        description = responce['weather'][0]['description']
+        icon = responce['weather'][0]['icon']
+        temp = round(responce['main']['temp'] - 273)
 
-    text = f"From: {name}\nDescription: {description}\nTemp: {temp}\nIcon: {icon}"
+        text = f"From: {name}\nDescription: {description}\nTemp: {temp}\nIcon: {icon}"
+    else:
+        text = 'Bunday shahar mavjud emas.\nIltimos qaytadan urinib ko\'ring'
     return text
 
 
@@ -39,5 +44,14 @@ def sendMessage(chat_id,text):
     url = f'https://api.telegram.org/bot{TOKEN}/sendMessage'
     requests.get(url,payload)
 
-chat_id,text = getUpdates()
-sendMessage(chat_id,getWeather(text))
+last_update_id = -1
+while True:
+    chat_id,text,update_id = getUpdates()
+    if last_update_id != update_id:
+        if text == '/start':
+            sendMessage(chat_id,'Shahar kiriting !')
+        elif text != '/start':
+            text = text.title()
+            sendMessage(chat_id,getWeather(text))
+            
+        last_update_id = update_id
