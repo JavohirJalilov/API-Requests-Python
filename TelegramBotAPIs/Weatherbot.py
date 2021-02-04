@@ -5,7 +5,7 @@ from pprint import pprint
 KEY = os.environ['KEY']
 TOKEN = os.environ['TOKEN']
 
-def getUpdates():
+def getUpdates()->tuple:
     responce = requests.get(f'https://api.telegram.org/bot{TOKEN}/getUpdates')
     data = responce.json()['result'][-1]
 
@@ -15,7 +15,7 @@ def getUpdates():
 
     return chat_id,text,update_id
 
-def getWeather(text):
+def getWeather(text:str)->str:
     payload = {
         'q':text,
         'appid':KEY
@@ -28,7 +28,6 @@ def getWeather(text):
         description = responce['weather'][0]['description']
         icon = responce['weather'][0]['icon']
         temp = round(responce['main']['temp'] - 273)
-
         text = f"From: {name}\nDescription: {description}\nTemp: {temp}\nIcon: {icon}"
     else:
         text = 'Bunday shahar mavjud emas.\nIltimos qaytadan urinib ko\'ring'
@@ -36,7 +35,7 @@ def getWeather(text):
 
 
 
-def sendMessage(chat_id,text):
+def sendMessage(chat_id:int,text:str):
     payload = {
         'chat_id':chat_id,
         'text':text
