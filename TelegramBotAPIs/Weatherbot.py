@@ -23,7 +23,7 @@ def getWeather(text:str)->str:
     url = 'https://api.openweathermap.org/data/2.5/weather'
     responce = requests.get(url,params=payload)
     if responce.status_code == 200:
-        responce = requests.get(url,params=payload).json()
+        responce = responce.json()
         name = responce['name']
         description = responce['weather'][0]['description']
         icon = responce['weather'][0]['icon']
