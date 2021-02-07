@@ -14,7 +14,8 @@ def sendPhoto(chat_id):
     url = f'https://api.telegram.org/bot{TOKEN}/sendPhoto'
     payload = {
         'chat_id':chat_id,
-        'photo':'https://random.dog/a1eba572-e557-474b-a023-e48ead3c2786.jpeg'
+        'photo':'https://random.dog/a1eba572-e557-474b-a023-e48ead3c2786.jpeg',
+        'caption':'Dog Animal'
     }
     r = requests.get(url,payload)
     pprint(r.json())
