@@ -13,4 +13,20 @@ def getUpdates():
     return chat_id,update_id,chat_id,text,first_name
 
 
-getUpdates()
+def LikeDisLike():
+    like = '\U0001F44D'
+    dislike = '\U0001F44E'
+    return like,dislike
+
+def writeLike(chat_id,text,first_name):
+    print(text)
+
+last_update_id = -1
+
+while True:
+    chat_id,update_id,chat_id,text,first_name = getUpdates()
+    like,dislike = LikeDisLike()
+    if last_update_id != update_id:
+        if text == like or text == dislike:
+            writeLike(chat_id,text,first_name)
+        last_update_id = update_id
