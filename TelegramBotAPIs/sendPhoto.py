@@ -12,12 +12,13 @@ def get_updates():
 
 def sendPhoto(chat_id):
     url = f'https://api.telegram.org/bot{TOKEN}/sendPhoto'
+    photo = open('logo.jpeg','rb')
     payload = {
         'chat_id':chat_id,
-        'photo':'https://random.dog/a1eba572-e557-474b-a023-e48ead3c2786.jpeg',
-        'caption':'Dog Animal'
+        # 'photo':'https://random.dog/a1eba572-e557-474b-a023-e48ead3c2786.jpeg',
+        # 'caption':'Dog Animal'
     }
-    r = requests.get(url,payload)
+    r = requests.get(url,params=payload,files={'photo':photo})
     pprint(r.json())
 # 1046157991
 
