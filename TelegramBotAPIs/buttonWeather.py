@@ -8,13 +8,20 @@ TOKEN = os.environ['TOKEN']
 def getUpdates()->tuple:
     responce = requests.get(f'https://api.telegram.org/bot{TOKEN}/getUpdates')
     data = responce.json()['result'][-1]
-    location = data['message'].get('location')
-    pprint(location)
     chat_id = data['message']['chat']['id']
     text = data['message'].get('text')
     update_id = data['update_id']
 
-    return chat_id,text,update_id,location
+    return chat_id,text,update_id
+
+def getLocation():
+    responce = requests.get(f'https://api.telegram.org/bot{TOKEN}/getUpdates')
+    data = responce.json()['result'][-1]
+    location = data['message'].get('location')
+    lat = location.get('latitude')
+    lan = location.get('longitude')
+    print(lat,lan)
+    return lat,lan
 
 def sendMessage(chat_id:int,text:str):
     button = {'text':'Location ','request_location':True}
@@ -28,7 +35,7 @@ def sendMessage(chat_id:int,text:str):
     url = f'https://api.telegram.org/bot{TOKEN}/sendMessage'
     requests.get(url,json=payload)
 
-chat_id,text,update_id,location = getUpdates()
+chat_id,text,update_id = getUpdates()
+location = getLocation()
 
-print(sendMessage(chat_id,text))
 
